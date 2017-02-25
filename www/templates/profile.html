@@ -15,8 +15,9 @@
     <div class="profile-background" style="background-image: url('img/profile-bg.jpg');"></div>
     <div class="profile-content">
       <img class="profile-img" src="{{selectedFoodie.info.foodieImg}}">
-      <div class="profile-text">
-      <button class="button icon ion-person-add"></button>
+      <div class="profile-text" ng-init="isFollowedx=isFollowed(selectedFoodie.$id)">
+      <button class="button icon ion-person-add" ng-click="followFoodie(selectedFoodie.info.foodieID,isFollowedx.$value==null)"></button>
+
         <h3>{{selectedFoodie.info.foodieName}}</h3>
         <p>bahbahbah</p>
       </div>

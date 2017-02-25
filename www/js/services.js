@@ -143,17 +143,25 @@ angular.module('starter.services', [])
     //   updates['/users/' + uid + '/info/'] = foodieInformation;
     //   return firebase.database().ref().update(updates);
     // },
+    isFollowed: function(foodieKey) {
+      var uid = userData.getUser().uid;
+      var firebaseRef = firebase.database().ref('/users/' + uid + '/following/'+ foodieKey);
+      var isFollowed = $firebaseObject(firebaseRef);
+      return isFollowed;
+    },
+
 
     followFoodie: function(foodieKey,follow) {
 
       var uid = userData.getUser().uid;
       var followTime = Math.floor(Date.now()/1000);
       var counterRef;
+    console.log('services followFoodie',foodieKey, follow);
 
-      if (follow==true){
+      if (follow){
           counterRef = firebase.database().ref('/users/' + foodieKey + '/follower/counter');
           counterRef.transaction(function(currentCount) {
-          console.log('currentCount',currentCount);
+          console.log('currentCount follow',currentCount);
           return currentCount + 1;
         });
 
@@ -166,7 +174,7 @@ angular.module('starter.services', [])
       else {
           counterRef = firebase.database().ref('/users/' + foodieKey + '/follower/counter');
           counterRef.transaction(function(currentCount) {
-          console.log('currentCount',currentCount);
+          console.log('currentCount remove',currentCount);
           return currentCount - 1;
         });
 

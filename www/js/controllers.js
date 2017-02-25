@@ -18,8 +18,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.bookmarkArticle = function(articleKey, bookmark){
-    console.log(articleKey, bookmark);
-      articles.bookmarkArticle(articleKey, bookmark);
+    articles.bookmarkArticle(articleKey, bookmark);
   };
 
   // Expand Card ---------------------------------------------------------------------
@@ -253,32 +252,6 @@ angular.module('starter.controllers', [])
     return articles.isRateArticle(articleKey);
   };
 
-
-
-  $scope.countChildd = function(path){
-
-
-
-  // var k = firebase.database().ref('/users/').once("value").then(function(snapshot) {
-  //   return snapshot.numChildren(); // 1 ("name")
-  // });
-
-  // return console.log(k);
-
-  // a.once("value").then(function () {
-  //   $scope.countChildren = a;
-  //   console.log(a);    
-  // });
-
-
-    // var getTotalCount = {};
-
-
-    // console.log(getTotalCount);
-    // return getTotalCount;
-
-  };
-
   $scope.articleBookmarkCount = function(articleKey) {
       return articles.articleBookmarkCount(articleKey);
   };
@@ -351,6 +324,18 @@ angular.module('starter.controllers', [])
       
     $scope.selectedFoodie = foodies.getFoodie($stateParams.foodieKey);
     console.log('Selected Foodie: ', $scope.selectedFoodie);
+
+    $scope.followFoodie = function(foodieKey, follow){
+    console.log('controller followFoodie',foodieKey, follow);
+
+    foodies.followFoodie(foodieKey, follow);
+    };
+
+    $scope.isFollowed = function(foodieKey){
+
+      console.log('following',foodieKey, foodies.isFollowed(foodieKey));
+      return foodies.isFollowed(foodieKey);
+    };
 
     //Slide
     $scope.slide = function(to) {
