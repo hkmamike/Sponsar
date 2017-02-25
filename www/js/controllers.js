@@ -17,6 +17,11 @@ angular.module('starter.controllers', [])
     $ionicSideMenuDelegate.toggleRight();
   };
 
+  $scope.bookmarkArticle = function(articleKey, bookmark){
+    console.log(articleKey, bookmark);
+      articles.bookmarkArticle(articleKey, bookmark);
+  };
+
   // Expand Card ---------------------------------------------------------------------
   // $scope.toggleGroup = function(group) {
   //   if ($scope.isGroupShown(group)) {
@@ -230,9 +235,7 @@ angular.module('starter.controllers', [])
     return foodies.getFoodieInfo(foodieID);
   };
 
-  $scope.bookmarkArticle = function(articleKey, bookmark){
-      articles.bookmarkArticle(articleKey, bookmark);
-  };
+
 
   $scope.isBookmarkArticle = function(articleKey){
     return articles.isBookmarkArticle(articleKey);

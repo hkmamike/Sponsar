@@ -14,12 +14,12 @@
     </ion-item>
  -->
 
-    <ion-list>
-    <ion-item class="item-text-wrap item-thumbnailLarge-left" ng-repeat="articlekey in user.bookmark"  ng-init='article=getArticlebyKey(articlekey)' style="height: 110px">
+    <ion-list style="height: 110px">
+    <ion-item class="item-thumbnailLarge-left" ng-repeat="articlekey in user.bookmark"  ng-init='article=getArticlebyKey(articlekey)'>
       <img src={{article.coverImage}} ui-sref="app.article({'articleKey':articlekey})">
       <span>{{article.name}}<br><p>#{{article.type}} #{{article.location}} #FollowedFoodie</p></span>
+    <ion-option-button class="assertive" ng-click="bookmarkArticle(article.key,false)">REMOVE</ion-option-button>
     </ion-item>
-    <ion-option-button>123</ion-option-button>
     </ion-list>
 
 <!--         <ion-item class="item-text-wrap item-thumbnailLarge-left"
