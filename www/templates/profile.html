@@ -16,6 +16,7 @@
     <div class="profile-content">
       <img class="profile-img" src="{{selectedFoodie.info.foodieImg}}">
       <div class="profile-text">
+      <button class="button icon ion-person-add"></button>
         <h3>{{selectedFoodie.info.foodieName}}</h3>
         <p>bahbahbah</p>
       </div>
@@ -26,7 +27,7 @@
             <a class="button ion-button" ng-click="slide(0)">Info</a>
             <a class="button ion-button" ng-click="slide(1)">Articles</a>
         </div>
-
+  
         <div>
             <ion-slide-box class="delegate-handle" on-slide-changed="scrollTop()" on-slide-changed="activateTabs($index)"  show-pager="false" >
                 <ion-slide>

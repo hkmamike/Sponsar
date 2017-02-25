@@ -14,6 +14,7 @@
     </ion-item>
  -->
 
+
     <ion-list style="height: 110px">
     <ion-item class="item-thumbnailLarge-left" ng-repeat="articlekey in user.bookmark"  ng-init='article=getArticlebyKey(articlekey)'>
       <img src={{article.coverImage}} ui-sref="app.article({'articleKey':articlekey})">

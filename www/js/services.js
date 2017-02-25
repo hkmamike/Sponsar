@@ -39,15 +39,17 @@ angular.module('starter.services', [])
 
 
     createUser: function() {
+      console.log('create User')
+
       var foodieInformation = {
-        foodieName: userData.getUser().displayName,
-        foodieID: userData.getUser().uid,
+        foodieName: this.getUser().displayName,
+        foodieID: this.getUser().uid,
         foodieScore: 100,
-        foodieEmail: userData.getUser().email,
-        foodieImg: userData.getUser().photoURL
+        foodieEmail: this.getUser().email,
+        foodieImg: this.getUser().photoURL
       };
 
-      console.log('foodieInfo', foodieInformation);
+      console.log('foodieInfo createUser', foodieInformation);
       var updates = {};
       updates['/users/' + uid + '/info/'] = foodieInformation;
       return firebase.database().ref().update(updates);
@@ -122,27 +124,57 @@ angular.module('starter.services', [])
       return foodieInfo;
     },
 
-    createFoodie: function() {
-      var currentUserInfo = userData.getUser();
-      var uid = currentUserInfo.uid;
-      var userName = currentUserInfo.displayName;
-      var userEmail = currentUserInfo.email;
-      var userImg = currentUserInfo.photoURL;
-      var foodieInformation = {
-        foodieName: userName,
-        foodieID: uid,
-        foodieScore: 100,
-        foodieLv: 1,
-        foodieEmail: userEmail,
-        foodieImg: userImg
-      };
-      console.log('foodieInfo', foodieInformation);
-      var updates = {};
-      updates['/users/' + uid + '/info/'] = foodieInformation;
-      return firebase.database().ref().update(updates);
-    },
+    // createFoodie: function() {
+    //   var currentUserInfo = userData.getUser();
+    //   var uid = currentUserInfo.uid;
+    //   var userName = currentUserInfo.displayName;
+    //   var userEmail = currentUserInfo.email;
+    //   var userImg = currentUserInfo.photoURL;
+    //   var foodieInformation = {
+    //     foodieName: userName,
+    //     foodieID: uid,
+    //     foodieScore: 100,
+    //     foodieLv: 1,
+    //     foodieEmail: userEmail,
+    //     foodieImg: userImg
+    //   };
+    //   console.log('foodieInfo createFoodie', foodieInformation);
+    //   var updates = {};
+    //   updates['/users/' + uid + '/info/'] = foodieInformation;
+    //   return firebase.database().ref().update(updates);
+    // },
 
-    bookmarkFoodie: function(foodieKey) {
+    followFoodie: function(foodieKey,follow) {
+
+      var uid = userData.getUser().uid;
+      var followTime = Math.floor(Date.now()/1000);
+      var counterRef;
+
+      if (follow==true){
+          counterRef = firebase.database().ref('/users/' + foodieKey + '/follower/counter');
+          counterRef.transaction(function(currentCount) {
+          console.log('currentCount',currentCount);
+          return currentCount + 1;
+        });
+
+        var updates = {};
+        updates['/users/' + uid + '/following/' + foodieKey] =  foodieKey;
+        updates['/users/' + foodieKey + '/follower/' + uid] = followTime;
+        return firebase.database().ref().update(updates);
+      }
+
+      else {
+          counterRef = firebase.database().ref('/users/' + foodieKey + '/follower/counter');
+          counterRef.transaction(function(currentCount) {
+          console.log('currentCount',currentCount);
+          return currentCount - 1;
+        });
+
+        firebase.database().ref('/users/' + uid + '/following/' + foodieKey).remove();
+        firebase.database().ref('/users/' + foodieKey + '/follower/' + uid).remove();
+      }
+      
+     
     },
 
   };
@@ -563,16 +595,16 @@ angular.module('starter.services', [])
     //   return ratedDownArticle;
     // },
 
-    articleScole: function(articleKey) {
+    articleScoreCount: function(articleKey) {
 
-    var totalUp = firebase.database().ref('/posts/'+ articleKey + '/rate/up/').once("value").then(function(snapshot) {
+    var totalUp = firebase.database().ref('/posts/'+ articleKey + '/rate/up/').on("value").then(function(snapshot) {
             totalCount = snapshot.numChildren();
             console.log('count',totalCount);
             return(totalCount);
     });
 
 
-    var totalDown = firebase.database().ref('/posts/'+ articleKey + '/rate/down/').once("value").then(function(snapshot) {
+    var totalDown = firebase.database().ref('/posts/'+ articleKey + '/rate/down/').on("value").then(function(snapshot) {
             totalCount = snapshot.numChildren();
             console.log('count',totalCount);
             return(totalCount);
@@ -581,9 +613,9 @@ angular.module('starter.services', [])
       return (2*totalUp/(totalUp+totalDown) - 1 )*100;
     },
 
-    articleBookmark: function(articleKey) {
+    articleBookmarkCount: function(articleKey) {
 
-    var k = firebase.database().ref('/posts/'+ articleKey + '/bookmark/').once("value").then(function(snapshot) {
+    var k = firebase.database().ref('/posts/'+ articleKey + '/bookmark/').on("value").then(function(snapshot) {
             totalCount = snapshot.numChildren();
             console.log('count',totalCount);
             return(totalCount);

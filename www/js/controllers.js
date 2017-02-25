@@ -88,7 +88,8 @@ angular.module('starter.controllers', [])
     var userName = userData.getUser().displayName;
     console.log('uid is', uid);
     console.log('userName', userName);
-    foodies.createFoodie();
+    // foodies.createFoodie();
+    userData.createUser();
     // console.log('CREATEFoodie: ', foodies.createFoodie());
 
   }).catch(function(error) {
@@ -198,12 +199,12 @@ angular.module('starter.controllers', [])
   $scope.getBookmarkCount= function(articleKey) {
    console.log('articleKey',articleKey);
    var def = $q.defer();
-   firebase.database().ref('/posts/'+ articleKey + '/bookmark/').once('value', function(snapshot) {
+   firebase.database().ref('/posts/'+ articleKey + '/bookmark/').on('value', function(snapshot) {
       var totalCount = snapshot.numChildren();
       def.resolve(totalCount);
    });
    console.log('getBookmarkCount',def.promise, def.promise.$$state.value);
-   return def.promise.$$state.value;
+   return def.promise.$$state.value-1;
   };
 
   $scope.getScore= function(articleKey) {
@@ -220,13 +221,14 @@ angular.module('starter.controllers', [])
       defdown.resolve(totalCount);
    });
 
-  var upCount = defup.promise.$$state.value;
-  var downCount = defdown.promise.$$state.value;
+  var upCount = defup.promise.$$state.value -1 ;
+  var downCount = defdown.promise.$$state.value -1;
   if (upCount != upCount){upCount=0;}
   if (downCount != downCount){downCount=0;}
   var totalScole = upCount/(upCount+downCount);
   if (totalScole != totalScole){totalScole=0;}
 
+  var totalScole = upCount - downCount;
   return totalScole;
   };
 
@@ -277,12 +279,13 @@ angular.module('starter.controllers', [])
 
   };
 
-  $scope.countBookmark = function(articleKey) {
-      return 56;
+  $scope.articleBookmarkCount = function(articleKey) {
+      return articles.articleBookmarkCount(articleKey);
   };
 
-  $scope.articleScole = function(articleKey) {
-      return 99 ;
+  $scope.articleScoreCount= function(articleKey) {
+      return articles.articleScoreCount(articleKey);
+
   };
 
   // $scope.isRateUpArticle = function(articleKey){
