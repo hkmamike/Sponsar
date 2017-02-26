@@ -340,15 +340,15 @@ angular.module('starter.services', [])
                   timestamp: Math.floor(Date.now()/1000),
                   coverImage: downloadURL,
                   author: uid,
-                  key: newPostKey
+                  key: newPostKey,
                   bookmarkCount: 0,
-                  rateCount: 0,
-
+                  rateCount: 0
               };
 
               var newArticleScore = {
                   bookmark: {counter:0},
-                  rate: {counter:0}
+                  RateUp: {counter:0},
+                  RateDown: {counter:0}
               };
 
 
@@ -370,15 +370,12 @@ angular.module('starter.services', [])
                   key: newPostKey
               };
 
-              var newArticle2 = {
-                  ArticleDetails:newArticleDetails,
-                  ScoreDetails: newArticleScore,
-              };
 
               var updates = {};
 
               updates['/posts/' + newPostKey] = newArticle;
-              updates['/user-posts/' + uid + '/' + newPostKey] = newArticle;
+              // updates['/user-posts/' + uid + '/' + newPostKey] = newArticle;
+              updates['/postsScore/' + newPostKey] = newArticleScore;
               updates['/users/' + uid + '/posts/' + newPostKey] = newPostKey;
 
               firebase.database().ref().update(updates);
