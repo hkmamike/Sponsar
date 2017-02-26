@@ -33,7 +33,8 @@
                   isRated=isRateArticle(article.key); 
                   bookmarkCount=getBookmarkCount(article.key); 
                   rateScore=getScore(article.key);
-                  isFollowedx=isFollowed(article.author)">
+                  isFollowedx=isFollowed(article.author);
+                  COUNTVIEW()">
 
 
       <div style="border-bottom:0px ; margin-bottom: 0px" >
@@ -56,7 +57,11 @@
         </ion-item>
       </div>
 
-      <div class="pictureFrame" style="background-image: url({{article.coverImage}});" ui-sref="app.article({'articleKey':article.key})">
+      <div  class="pictureFrame" 
+            style="background-image: url({{article.coverImage}});" 
+            ui-sref="app.article({'articleKey':article.key})"
+            ng-click="COUNTCLICK()">
+
         <img src={{article.coverImage}} style="visibility: hidden; width: 100%">
         <div class="backgroundGradient"></div>
         <div class="textShadow">

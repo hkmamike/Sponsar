@@ -16,7 +16,11 @@
     <div class="profile-content">
       <img class="profile-img" src="{{selectedFoodie.info.foodieImg}}">
       <div class="profile-text" ng-init="isFollowedx=isFollowed(selectedFoodie.$id)">
-      <button class="button icon ion-person-add" ng-click="followFoodie(selectedFoodie.info.foodieID,isFollowedx.$value==null)"></button>
+      
+      <button class="button icon ion-person-add" 
+              ng-class="{true: 'positive'}[isFollowedx.$value!==null]"
+              ng-click="followFoodie(selectedFoodie.info.foodieID,isFollowedx.$value==null)">
+      </button>
 
         <h3>{{selectedFoodie.info.foodieName}}</h3>
         <p>bahbahbah</p>

@@ -331,7 +331,7 @@ angular.module('starter.services', [])
                 2:downloadURL,
                 3:downloadURL};
 
-              var newArticleInfo = {
+              var newArticleDetails = {
                   name: article.name,
                   restaurantName: article.restaurantName,
                   location: article.location,
@@ -341,10 +341,21 @@ angular.module('starter.services', [])
                   coverImage: downloadURL,
                   author: uid,
                   key: newPostKey
+                  bookmarkCount: 0,
+                  rateCount: 0,
+
               };
 
+              var newArticleScore = {
+                  bookmark: {counter:0},
+                  rate: {counter:0}
+              };
+
+
               var newArticle = {
-                  info:newArticleInfo,
+                  ArticleDetails:newArticleDetails,
+                  ScoreDetails: newArticleScore,
+                  ScoreInfo: newArticleScore,
                   name: article.name,
                   bookmark: {counter:0},
                   rate: {counter:0},
@@ -357,6 +368,11 @@ angular.module('starter.services', [])
                   coverImage: downloadURL,
                   author: uid,
                   key: newPostKey
+              };
+
+              var newArticle2 = {
+                  ArticleDetails:newArticleDetails,
+                  ScoreDetails: newArticleScore,
               };
 
               var updates = {};
