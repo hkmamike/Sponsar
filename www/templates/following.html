@@ -1,0 +1,27 @@
+<ion-view view-title="Following"  hide-nav-bar="false">
+  <ion-content style="background-color: #ffc">
+
+    <ion-list style="height: 110px">
+    <ion-item class="item-avatar" 
+              ng-repeat="foodieKey in user.following"  
+              ng-init='foodieInfo=getFoodieInfo(foodieKey)'
+              ui-sref="app.profile({'foodieKey':foodieKey})">
+
+      <img src={{foodieInfo.foodieImg}}>
+      <span>{{foodieInfo.foodieName}}</span>
+    <ion-option-button class="assertive" ng-click="bookmarkArticle(article.key,false)">REMOVE</ion-option-button>
+    </ion-item>
+    </ion-list>
+
+<!--         <ion-item class="item-text-wrap item-thumbnailLarge-left"
+                  ng-repeat="articlekey in favouriteArticle" 
+                  item="articlekey"
+                  ng-init='article=getArticlebyKey(articlekey)' 
+                  style="height: 110px">
+
+          <img src={{article.coverImage}} ui-sref="app.article({'articleKey':articlekey})">
+          <span>{{article.name}}<br><p>#{{article.type}} #{{article.location}} #FollowedFoodie</p></span>
+        </ion-item> -->
+
+  </ion-content>
+</ion-view>

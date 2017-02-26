@@ -63,6 +63,16 @@ angular.module('starter', ['ionic', 'chart.js', 'starter.controllers', 'starter.
     }
   })
 
+  .state('app.following', {
+    url: '/following',
+    views: {
+      'tab_following': {
+        templateUrl: 'templates/following.html',
+        controller: 'followingCtrl'
+      }
+    }
+  })
+
   .state('app.profile', {
     url: '/profile/:foodieKey',
     views: {

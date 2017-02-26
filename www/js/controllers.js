@@ -185,6 +185,24 @@ angular.module('starter.controllers', [])
     };
 
 
+
+
+})
+
+
+//following page controller
+.controller('followingCtrl', function($scope, articles, userData, foodies) {
+
+    $scope.getArticlebyKey = function(articleKey){
+      console.log('articleKey',articleKey);
+      return articles.dataPath(articleKey);
+    };
+
+    $scope.getFoodieInfo = function(foodieID){
+    console.log('foodieID',foodieID);
+    return foodies.getFoodieInfo(foodieID);
+  };
+
 })
 
 
@@ -233,6 +251,7 @@ angular.module('starter.controllers', [])
 
 
   $scope.getSelectedArticleFoodieInfo = function(foodieID){
+    console.log('foodieID',foodieID);
     return foodies.getFoodieInfo(foodieID);
   };
 

@@ -29,6 +29,10 @@
         <ion-nav-view name="tab_favourites"></ion-nav-view>
       </ion-tab>
 
+      <ion-tab title="Following" icon-off="ion-heart" icon-on="ion-heart" ui-sref="app.following" hidden="true">
+        <ion-nav-view name="tab_following"></ion-nav-view>
+      </ion-tab>
+
       <ion-tab title="Profile" icon-off="ion-person" icon-on="ion-person" ui-sref="app.profile" hidden="true">
         <ion-nav-view name="tab_profile"></ion-nav-view>
       </ion-tab>
@@ -72,8 +76,8 @@
         <ion-item menu-close ui-sref="app.activities">Activites</ion-item>
         <ion-item menu-close ui-sref="app.selections">Editor's Selections</ion-item>
         <ion-item menu-close ui-sref="app.favourites">Saved Articles</ion-item>
-        <ion-item menu-close ui-sref="app.favourites">My Followings</ion-item>
-        <ion-item menu-close ui-sref="app.favourites">My Points</ion-item>
+        <ion-item menu-close ui-sref="app.following">My Followings</ion-item>
+        <ion-item menu-close ui-sref="app.favourites">My Articles</ion-item>
         <ion-item menu-close ng-click="openNewArticle()">Recommand</ion-item>
       </ion-list>
     </ion-content>

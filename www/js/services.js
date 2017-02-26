@@ -364,6 +364,36 @@ angular.module('starter.services', [])
     },
 
 
+    clickArticle: function(articleKey) {
+
+      var uid = userData.getUser().uid;
+      var clickTime = Math.floor(Date.now()/1000);
+      var counterRef;
+      console.log('services clickArticle',articleKey);
+
+      if (isClicked){
+          counterRef = firebase.database().ref('/posts/' + articleKey + '/click/counter');
+          counterRef.transaction(function(currentCount) {
+          console.log('currentCount click',currentCount);
+          return currentCount + 1;
+        });
+
+        var updates = {};
+        updates['/users/' + uid + '/click/' + articleKey] =  clickTime;
+        updates['/posts/' + articleKey + '/click/' + uid] = clickTime;
+        return firebase.database().ref().update(updates);
+      }
+
+      else {
+        var updates = {};
+        updates['/users/' + uid + '/click/' + articleKey] =  clickTime;
+        updates['/posts/' + articleKey + '/click/' + uid] = clickTime;
+        return firebase.database().ref().update(updates);
+      }
+      
+     
+    },
+
 
     bookmarkArticle: function(articleKey,bookmark) {
       var uid = userData.getUser().uid;
@@ -533,10 +563,10 @@ angular.module('starter.services', [])
         updates['/users/' + uid + '/rate/' + articleKey] =  rate;
         
         if(rate==1) { //from rate down to rate up
-
+          console.log('//from rate down to rate up');
           updates['/posts/' + articleKey + '/rate/up/' + uid] = rateTime;
 
-          ounterRef = firebase.database().ref('/posts/' + articleKey + '/rate/down/counter');
+          counterRef = firebase.database().ref('/posts/' + articleKey + '/rate/down/counter');
             counterRef.transaction(function(currentCount) {
             console.log('currentCount',currentCount);
             return currentCount - 1;
@@ -554,7 +584,7 @@ angular.module('starter.services', [])
         }
 
         else {  //from rate up to rate down
-          
+          console.log('//from rate up to rate down');
           updates['/posts/' + articleKey + '/rate/down/' + uid] = rateTime;
 
           counterRef = firebase.database().ref('/posts/' + articleKey + '/rate/up/counter');
