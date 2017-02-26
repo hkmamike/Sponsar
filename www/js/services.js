@@ -331,7 +331,20 @@ angular.module('starter.services', [])
                 2:downloadURL,
                 3:downloadURL};
 
+              var newArticleInfo = {
+                  name: article.name,
+                  restaurantName: article.restaurantName,
+                  location: article.location,
+                  type: article.type,
+                  contents: article.contents,
+                  timestamp: Math.floor(Date.now()/1000),
+                  coverImage: downloadURL,
+                  author: uid,
+                  key: newPostKey
+              };
+
               var newArticle = {
+                  info:newArticleInfo,
                   name: article.name,
                   bookmark: {counter:0},
                   rate: {counter:0},
@@ -375,6 +388,37 @@ angular.module('starter.services', [])
           counterRef = firebase.database().ref('/posts/' + articleKey + '/click/counter');
           counterRef.transaction(function(currentCount) {
           console.log('currentCount click',currentCount);
+          return currentCount + 1;
+        });
+
+        var updates = {};
+        updates['/users/' + uid + '/click/' + articleKey] =  clickTime;
+        updates['/posts/' + articleKey + '/click/' + uid] = clickTime;
+        return firebase.database().ref().update(updates);
+      }
+
+      else {
+        var updates = {};
+        updates['/users/' + uid + '/click/' + articleKey] =  clickTime;
+        updates['/posts/' + articleKey + '/click/' + uid] = clickTime;
+        return firebase.database().ref().update(updates);
+      }
+      
+     
+    },
+
+
+    viewArticle: function(articleKey) {
+
+      var uid = userData.getUser().uid;
+      var clickTime = Math.floor(Date.now()/1000);
+      var counterRef;
+      console.log('services viewArticle',articleKey);
+
+      if (isViewed){
+          counterRef = firebase.database().ref('/posts/' + articleKey + '/click/counter');
+          counterRef.transaction(function(currentCount) {
+          console.log('currentCount view',currentCount);
           return currentCount + 1;
         });
 
