@@ -350,6 +350,16 @@
   width: 24%;
 }
 
+.threeQuarter {
+  display: inline-block;
+  float: left;
+  margin: 0.5%;
+  margin-top: 0%;
+  margin-bottom: 0.2%;
+  padding: 0;
+  width: 74%;
+}
+
 .oneThird {
   display: inline-block;
   float: left;

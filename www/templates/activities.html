@@ -26,14 +26,33 @@
 
     </div>
 
-    <div class="cardflat item-text-wrap" ng-repeat="article in articles" ng-init='foodieInfo=getSelectedArticleFoodieInfo(article.author); isBookmarked=isBookmarkArticle(article.key); isRated=isRateArticle(article.key); bookmarkCount=getBookmarkCount(article.key); rateScore=getScore(article.key);'>
+    <div class="cardflat item-text-wrap" 
+         ng-repeat="article in articles" 
+         ng-init="foodieInfo=getSelectedArticleFoodieInfo(article.author); 
+                  isBookmarked=isBookmarkArticle(article.key); 
+                  isRated=isRateArticle(article.key); 
+                  bookmarkCount=getBookmarkCount(article.key); 
+                  rateScore=getScore(article.key);
+                  isFollowedx=isFollowed(article.author)">
 
 
-      <div ui-sref="app.profile({'foodieKey':article.author})" style="border-bottom:0px ; margin-bottom: 0px" >
+      <div style="border-bottom:0px ; margin-bottom: 0px" >
         <ion-item class="item-avatar no-padding" style="border-bottom:0;">
-          <img src= {{foodieInfo.foodieImg}}>
-          <span>{{foodieInfo.foodieName}}<br></span>
+          
+          <img src= {{foodieInfo.foodieImg}} ui-sref="app.profile({'foodieKey':article.author})">
+          
+          <div class="threeQuarter no-padding">
+          <span class="text-left">{{foodieInfo.foodieName}}<br></span>
           [Lv {{foodieInfo.foodieLv}}] <i class="icon ion-stats-bars"></i>{{foodieInfo.foodieScore}}%
+          </div>
+
+          <div class="quarter text-right no-padding">
+          <button class="button icon ion-person-add" 
+                  ng-class="{true: 'positive'}[isFollowedx.$value!==null]" 
+                  ng-click="followFoodie(article.author,isFollowedx.$value==null)">          
+          </button>
+          </div>
+
         </ion-item>
       </div>
 
@@ -48,7 +67,7 @@
 
       <div style="height:50px; padding: 0px">
 
-      <div class="twoThird" style="padding: 0px">
+      <div class="threeQuarter" style="padding: 0px">
         <button class="button icon ion-heart" ng-class="{true: 'assertive'}[isBookmarked.$value!==null]" ng-click="bookmarkArticle(article.key,isBookmarked.$value==null)"></button>
 
         <button class="button icon ion-share" ui-sref="app.favourites"></button>
@@ -57,7 +76,7 @@
         <button class="button icon ion-thumbsdown" ng-class="{true: 'royal'}[isRated.$value==-1]" ng-click="rateArticle(article.key,-1)"></button>
       </div>
 
-      <div class="oneThird" style="padding: 0px">
+      <div class="quarter" style="padding: 0px">
         <span style="float: right; font-size: 14px"><i class="icon ion-clock "></i> 3 hrs ago<br>
 
 

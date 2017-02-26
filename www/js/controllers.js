@@ -21,6 +21,15 @@ angular.module('starter.controllers', [])
     articles.bookmarkArticle(articleKey, bookmark);
   };
 
+    $scope.isFollowed = function(foodieKey){
+      console.log('following',foodieKey, foodies.isFollowed(foodieKey));
+      return foodies.isFollowed(foodieKey);
+    };
+
+    $scope.followFoodie = function(foodieKey, follow){
+    console.log('controller followFoodie',foodieKey, follow);
+    foodies.followFoodie(foodieKey, follow);
+    };
   // Expand Card ---------------------------------------------------------------------
   // $scope.toggleGroup = function(group) {
   //   if ($scope.isGroupShown(group)) {
@@ -344,17 +353,9 @@ angular.module('starter.controllers', [])
     $scope.selectedFoodie = foodies.getFoodie($stateParams.foodieKey);
     console.log('Selected Foodie: ', $scope.selectedFoodie);
 
-    $scope.followFoodie = function(foodieKey, follow){
-    console.log('controller followFoodie',foodieKey, follow);
 
-    foodies.followFoodie(foodieKey, follow);
-    };
 
-    $scope.isFollowed = function(foodieKey){
 
-      console.log('following',foodieKey, foodies.isFollowed(foodieKey));
-      return foodies.isFollowed(foodieKey);
-    };
 
     //Slide
     $scope.slide = function(to) {
