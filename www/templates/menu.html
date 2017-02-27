@@ -1,0 +1,89 @@
+<ion-side-menus enable-menu-with-back-views="true" >
+
+  <ion-side-menu-content drag-content="false">
+
+    <ion-nav-bar class="bar-stable bar-energized">
+
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <!--ion-nav-buttons>
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+      </ion-nav-buttons-->
+
+    </ion-nav-bar>
+
+
+<!-- TABS ===========================================================================================-->
+    <ion-tabs class="tabs-icon-top tabs-color-active-energized tabs-light">
+
+      <ion-tab title="Activities" icon-off="ion-ios-paper" icon-on="ion-ios-paper" ui-sref="app.activities">
+          <ion-nav-view name="tab_activities"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab title="Editor's Choice" icon-off="ion-ios-color-wand" icon-on="ion-ios-color-wand" ui-sref="app.selections">
+        <ion-nav-view name="tab_selections"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab title="Favourites" icon-off="ion-heart" icon-on="ion-heart" ui-sref="app.favourites">
+        <ion-nav-view name="tab_favourites"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab title="Following" icon-off="ion-heart" icon-on="ion-heart" ui-sref="app.following" hidden="true">
+        <ion-nav-view name="tab_following"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab title="Profile" icon-off="ion-person" icon-on="ion-person" ui-sref="app.profile" hidden="true">
+        <ion-nav-view name="tab_profile"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab title="TestTab" icon-off="ion-android-create"" icon-on="ion-android-create"" ui-sref="app.test">
+        <ion-nav-view name="tab_test"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab title="Article" icon-off="ion-android-create"" icon-on="ion-android-create"" ui-sref="app.article" hidden="true">
+        <ion-nav-view name="page_article"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab title="Restaurant" icon-off="ion-android-create"" icon-on="ion-android-create"" ui-sref="app.restaurant" hidden="true" >
+        <ion-nav-view name="tab_restaurant"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab icon="ion-navicon" ng-click="toggleRightSideMenu()">
+      </ion-tab>
+
+    </ion-tabs>
+<!-- TABS ===========================================================================================-->
+
+  </ion-side-menu-content>
+
+<!-- SIDEMENU =======================================================================================-->
+  <ion-side-menu side="right">
+
+    <ion-content>
+
+      <div class="sidemenu-content" ui-sref="app.profile({'foodieKey':user.info.foodieID})" menu-close>
+        <div class="sidemenu-avatar" >
+          <img src= "{{user.info.foodieImg}}">
+          <h3>{{user.info.foodieName}}</h3>
+        </div>
+      </div>
+
+      <button class="button button-block " ng-click="openlogin()" menu-close>Login</button>
+
+
+      <ion-list>
+        <ion-item menu-close ui-sref="app.activities">Activites</ion-item>
+        <ion-item menu-close ui-sref="app.selections">Editor's Selections</ion-item>
+        <ion-item menu-close ui-sref="app.favourites">Saved Articles</ion-item>
+        <ion-item menu-close ui-sref="app.following">My Followings</ion-item>
+        <ion-item menu-close ui-sref="app.favourites">My Articles</ion-item>
+        <ion-item menu-close ng-click="openNewArticle()">Recommand</ion-item>
+      </ion-list>
+    </ion-content>
+
+  </ion-side-menu>
+<!-- SIDEMENU =======================================================================================-->
+
+</ion-side-menus>
+
